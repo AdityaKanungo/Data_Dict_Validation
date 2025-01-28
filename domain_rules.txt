@@ -1,0 +1,88 @@
+DOMAIN RULES
+============
+
+[1] TABLE RULES
+---------------
+1. Prefix:
+   - Table names must start with "T". Example: T_PROVR_LOC.
+
+2. Approved Abbreviations:
+   - Only use organization-approved abbreviations. Please refer to the list of Approved Abbreviations provided later in this prompt
+
+3. Singular Form:
+   - Table names should be singular (e.g., T_PROVR_LOC not T_PROVRS_LOCS).
+
+4. English Name:
+   - The “English Name” must spell out the table concept (e.g., "Provider Location" for T_PROVR_LOC).
+
+5. Left-to-Right Assembly:
+   - Table names are formed left to right. ("Provider Location" → T_PROVR_LOC)
+
+6. Maximum Length:
+   - Table name must not exceed 30 characters.
+
+7. Table names must end with FACT or DIM or STG or RPTNG.
+
+[2] COLUMN RULES
+----------------
+1. Right-to-Left Assembly:
+   - Column names are formed right to left. ("Provider Location Identifier" → IDN_LOC_PROVR)
+
+2. Classword Prefix:
+   - The first 3 characters must be a classword (e.g., IDN_EDW, CDE, DTE). Please refer to the list of class words provided later in this prompt
+
+3. Approved Abbreviations:
+   - Any word >10 characters must be abbreviated using approved abbreviations.
+
+4. Singular Form:
+   - Column names should be singular (e.g., LOC_PROVR not LOCS_PROVR).
+
+5. Spelling:
+   - Use correct spelling in both column names and descriptions.
+
+6. Maximum Length:
+   - Column name must not exceed 30 characters.
+
+[3] PRIMARY KEY / FOREIGN KEY
+-----------------------------
+1. PK & FK Naming:
+   - If Is PK? = YES or Is FK? = YES, column name should start with IDN_ (e.g., IDN_EDW).
+
+2. FK Descriptions:
+   - If Is FK? = YES, the description must state which dimension/reference table it points to.
+
+3. Distinct Descriptions:
+   - Similar FKs with different numbers cannot share the same description (e.g., IDN_EDW_01 vs. IDN_EDW_02).
+
+[4] DATA TYPE / PRECISION
+-------------------------
+1. Number/Varchar Precision:
+   - If a column is NUMBER or VARCHAR, Precision cannot be blank.
+
+2. NULL vs. NOT NULL:
+   - Must explicitly state whether the column is NULL or NOT NULL (no blank default).
+
+[5] ADDITIONAL NAMING CONSISTENCY
+---------------------------------
+1. Parallel NAM Columns:
+   - If a column name starts with CDE, there must be a matching NAM or TXT column .
+   - Example pairs:
+       - CDE_ERROR ↔ NAM_ERROR
+       - CDE_TYPE_ENC ↔ TXT_TYPE_ENC
+
+[6] DESCRIPTIONS
+----------------
+1. Unique Descriptions:
+   - Columns with different names must not have the same exact description.
+
+2. Clarity:
+   - Descriptions should be detailed enough to explain business meaning, especially for FKs/relationships.
+
+[7] EXAMPLES
+------------
+- Effective Dates:
+   - Instead of DTE_EFFV_BEGIN / DTE_EFFV_END, use DTE_BEGIN_EFFV / DTE_END_EFFV.
+
+- Traditional Format:
+   - Table: "Provider Location" → T_PROVR_LOC
+   - Column: "Provider Location Identifier" → IDN_LOC_PROVR
