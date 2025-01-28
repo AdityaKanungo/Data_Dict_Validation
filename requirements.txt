@@ -4,3 +4,4 @@ openai
 fuzzywuzzy
 textblob
 openpyxl
+xlsxwriter
