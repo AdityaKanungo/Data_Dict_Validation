@@ -1,0 +1,12 @@
+streamlit
+pandas
+json
+io
+re
+datetime
+random
+itertools
+typing
+openai
+fuzzywuzzy
+textblob
