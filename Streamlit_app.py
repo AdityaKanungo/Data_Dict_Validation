@@ -13,7 +13,7 @@ from textblob import TextBlob  # For spell checking
 
 
 def load_abbreviations(uploaded_file) -> pd.DataFrame:
-    return pd.read_csv(uploaded_file, ).applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
+    return pd.read_csv(uploaded_file)
 
 def load_class_words(uploaded_file) -> pd.DataFrame:
     return pd.read_csv(uploaded_file)
