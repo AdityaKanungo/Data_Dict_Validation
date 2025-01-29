@@ -13,7 +13,7 @@ from textblob import TextBlob  # For spell checking
 
 
 def load_abbreviations(uploaded_file) -> pd.DataFrame:
-    return pd.read_csv(uploaded_file, encoding='latin-1') 
+    return pd.read_csv(uploaded_file).applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
 
 def load_class_words(uploaded_file) -> pd.DataFrame:
     return pd.read_csv(uploaded_file, encoding="utf-8")
@@ -500,7 +500,7 @@ def main():
     with tab1:
         st.write("Please upload a Data Dictionary file to start the validation process.")
         
-        if uploaded_dict:
+        if uploaded_dict and uploaded_abb and uploaded_cw:
             df_dict = load_data_dictionary(uploaded_dict)
             st.success("✅ All files uploaded successfully!")
             
