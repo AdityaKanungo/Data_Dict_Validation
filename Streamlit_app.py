@@ -13,10 +13,10 @@ from textblob import TextBlob  # For spell checking
 
 
 def load_abbreviations(uploaded_file) -> pd.DataFrame:
-    return pd.read_csv(uploaded_file)
+    return pd.read_csv(uploaded_file, encoding="utf-8")
 
 def load_class_words(uploaded_file) -> pd.DataFrame:
-    return pd.read_csv(uploaded_file)
+    return pd.read_csv(uploaded_file, encoding="utf-8")
 
 def load_domain_rules() -> str:
     with open("domain_rules.txt", "r", encoding="utf-8") as f:
