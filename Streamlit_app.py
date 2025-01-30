@@ -16,7 +16,6 @@ def load_abbreviations(uploaded_file) -> pd.DataFrame:
     if uploaded_file is not None:
         try:
             df = pd.read_csv(uploaded_file, encoding="utf-8")
-            st.write(df.head())  # Debugging: Show first few rows in Streamlit
             return df.applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
         except Exception as e:
             st.error(f"Error reading abbreviations file: {e}")
@@ -24,7 +23,16 @@ def load_abbreviations(uploaded_file) -> pd.DataFrame:
 
 
 def load_class_words(uploaded_file) -> pd.DataFrame:
-    return pd.read_csv(uploaded_file, encoding="utf-8")
+    if uploaded_file is not None:
+        try:
+            st.write(f"File name: {uploaded_file.name}, File type: {uploaded_file.type}")  # Debugging
+            df = pd.read_csv(uploaded_file, encoding="utf-8")
+            return df
+        except Exception as e:
+            st.error(f"Error reading class words file: {e}")
+            return pd.DataFrame()
+    return pd.DataFrame()
+
 
 def load_domain_rules() -> str:
     with open("domain_rules.txt", "r", encoding="utf-8") as f:
