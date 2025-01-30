@@ -16,7 +16,6 @@ def load_abbreviations(uploaded_file) -> pd.DataFrame:
     if uploaded_file is not None:
         try:
             df = pd.read_csv(uploaded_file, encoding="utf-8")
-            st.write(df.head())  # Debugging: Show first few rows in Streamlit
             return df.applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
         except Exception as e:
             st.error(f"Error reading abbreviations file: {e}")
