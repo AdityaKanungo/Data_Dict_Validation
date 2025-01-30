@@ -603,12 +603,12 @@ def main():
     with tab3:
         if uploaded_abb:
             abbreviations = load_abbreviations(uploaded_abb)
-            abbreviations_text = st.data_editor(abbreviations, use_container_width=True)
+            abbreviations_text = st.data_editor(abbreviations, key="abbreviations_editor", use_container_width=True)
 
     with tab4:
         if uploaded_cw:
             class_words = load_class_words(uploaded_cw)
-            class_words_text = st.data_editor(class_words, use_container_width=True)
+            class_words_text = st.data_editor(class_words, key="classword_editor", use_container_width=True)
 
 if __name__ == "__main__":
     main()
