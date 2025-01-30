@@ -25,7 +25,6 @@ def load_abbreviations(uploaded_file) -> pd.DataFrame:
 def load_class_words(uploaded_file) -> pd.DataFrame:
     if uploaded_file is not None:
         try:
-            st.write(f"File name: {uploaded_file.name}, File type: {uploaded_file.type}")  # Debugging
             df = pd.read_csv(uploaded_file, encoding="utf-8")
             return df
         except Exception as e:
