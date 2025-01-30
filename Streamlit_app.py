@@ -16,10 +16,16 @@ def load_abbreviations(uploaded_file) -> pd.DataFrame:
     if uploaded_file is not None:
         try:
             df = pd.read_csv(uploaded_file, encoding="utf-8")
+            if df.empty:
+                st.error("Uploaded abbreviations file is empty. Please upload a valid CSV file.")
+                return pd.DataFrame()
             return df.applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
+        except pd.errors.EmptyDataError:
+            st.error("Uploaded abbreviations file is empty or not formatted correctly.")
         except Exception as e:
             st.error(f"Error reading abbreviations file: {e}")
     return pd.DataFrame()
+
 
 
 def load_class_words(uploaded_file) -> pd.DataFrame:
