@@ -105,10 +105,20 @@ def highlight_validation_status(val):
     return ''
 
 def highlight_incorrect_capitalization(val):
-    print(val, capitalize_english_name(val))
-    if isinstance(val, str) and val != capitalize_english_name(val):
-        return 'background-color: yellow; color: black; font-weight: bold;'
-    return ''
+    """
+    Highlights incorrect capitalization in the 'English Name' column.
+    If capitalization is incorrect, applies yellow background styling and returns a note.
+    """
+    if not isinstance(val, str) or val.strip() == "":
+        return "", ""  # Ignore empty values or non-string data
+
+    corrected_val = capitalize_english_name(val)  # Get properly capitalized version
+
+    if val != corrected_val:  # Check if capitalization is incorrect
+        return 'background-color: yellow; color: black; font-weight: bold;', "Capitalization issue in English Name."
+
+    return "", ""  # Return empty styling and no issue message if capitalization is correct
+
 
 
 def spell_check_description(description: str) -> dict:
@@ -474,6 +484,12 @@ def validate_data_dictionary(df: pd.DataFrame, class_words: List[str], abbreviat
             suggested_column_name = ""
             additional_notes = "No corrections needed."
 
+
+        capitalization_style, capitalization_issue = highlight_incorrect_capitalization(english_name1)
+        
+        if capitalization_issue:  # If there's a capitalization problem
+            column_failure_reason += f" {capitalization_issue}"  # Append message to Notes
+
         #english_name = spell_check_description(english_name)
         #english_name = capitalize_english_name(english_name)
 
@@ -539,10 +555,9 @@ def main():
                 styled_df = (
                     df_results.style
                     .applymap(highlight_validation_status, subset=["Validation Status"])
-                    .applymap(highlight_incorrect_capitalization, subset=["English Name"])
+                    .applymap(lambda x: highlight_incorrect_capitalization(x)[0], subset=["English Name"])  # Apply only style
                 )
-
-
+                
                 # Display DataFrame
                 st.dataframe(styled_df)
 
