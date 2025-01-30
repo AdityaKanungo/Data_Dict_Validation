@@ -15,6 +15,7 @@ from textblob import TextBlob  # For spell checking
 def load_abbreviations(uploaded_file) -> pd.DataFrame:
     if uploaded_file is not None:
         try:
+            uploaded_file.seek(0)
             df = pd.read_csv(uploaded_file, encoding="utf-8")
             return df.applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
         except Exception as e:
@@ -24,6 +25,7 @@ def load_abbreviations(uploaded_file) -> pd.DataFrame:
 def load_class_words(uploaded_file) -> pd.DataFrame:
     if uploaded_file is not None:
         try:
+            uploaded_file.seek(0)
             df = pd.read_csv(uploaded_file, encoding="utf-8")
             return df.applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
         except Exception as e:
