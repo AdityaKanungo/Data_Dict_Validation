@@ -12,32 +12,11 @@ from fuzzywuzzy import process
 from textblob import TextBlob  # For spell checking
 
 
-def load_abbreviations(uploaded_file) -> pd.DataFrame:
-    if uploaded_file is not None:
-        try:
-            df = pd.read_csv(uploaded_file, encoding="utf-8")
-            if df.empty:
-                st.error("Uploaded abbreviations file is empty. Please upload a valid CSV file.")
-                return pd.DataFrame()
-            return df.applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
-        except pd.errors.EmptyDataError:
-            st.error("Uploaded abbreviations file is empty or not formatted correctly.")
-        except Exception as e:
-            st.error(f"Error reading abbreviations file: {e}")
-    return pd.DataFrame()
+def load_abbreviations() -> pd.DataFrame:
+    return pd.read_csv("abbreviations.csv", encoding="utf-8").applymap(lambda x: x.strip().upper() if isinstance(x, str) else x)
 
-
-
-def load_class_words(uploaded_file) -> pd.DataFrame:
-    if uploaded_file is not None:
-        try:
-            df = pd.read_csv(uploaded_file, encoding="utf-8")
-            return df
-        except Exception as e:
-            st.error(f"Error reading class words file: {e}")
-            return pd.DataFrame()
-    return pd.DataFrame()
-
+def load_class_words() -> pd.DataFrame:
+    return pd.read_csv("class_words.csv", encoding="utf-8")
 
 def load_domain_rules() -> str:
     with open("domain_rules.txt", "r", encoding="utf-8") as f:
